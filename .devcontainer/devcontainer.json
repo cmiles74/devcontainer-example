@@ -6,5 +6,6 @@
     "extensions": [
         "felixfbecker.php-pack",
         "cweijan.vscode-postgresql-client2"
-    ]
+    ],
+    "forwardPorts": [9080]
 }
