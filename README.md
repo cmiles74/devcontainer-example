@@ -14,6 +14,27 @@ based Visual Studio Code editor right from the GitHub website or you can click
 a button and use the copy of Code that you have installed on your local 
 machine.
 
+## What's in this Project?
+
+This project provides a devcontainer running PHP that you can use to do your
+all of your development work, it has the PHP and PostgreSQL extensions installed
+already. There's another container named `postgres_db` that's running postgres, 
+you can use this to persist data for your project. Lastly there's a container 
+named `webserver` running Apache and PHP, it's serving the files from the 
+`src` directory of this project.
+
+You should be able to see the [the webserver on port 9080](http://localhost:9080).
+You can connect to the database server using the installed PostgreSQL 
+extension using the default port. The credentials are...
+
+* Server Name: postgres_db
+* Account Name: postgres
+* Password: applesauce
+* Database: example
+
+The basic idea here is to provide a semi-complicated development environment so
+that you can get an idea of how it all works.
+
 ## Deployment Environments
 
 You can build and run your devcontainer in the following environments...

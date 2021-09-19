@@ -13,8 +13,6 @@ services:
   postgresql:
     hostname: postgres_db
     image: postgres:13
-    ports:
-      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=applesauce
@@ -25,6 +23,6 @@ services:
     hostname: webserver
     image: php:7.4-apache
     ports:
-      - 80:80
+      - 9080:80
     volumes:
       - ../src:/var/www/html
