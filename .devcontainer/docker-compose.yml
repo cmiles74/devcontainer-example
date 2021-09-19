@@ -1,0 +1,22 @@
+services:
+
+  # development container
+  development:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace
+    stdin_open: true
+
+  # database
+  postgresql:
+    hostname: postgres_db
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=applesauce
+      - POSTGRES_DB=example
+

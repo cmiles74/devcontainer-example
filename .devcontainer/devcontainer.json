@@ -1,0 +1,11 @@
+{
+    "name"; "devcontainer-example",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "development",
+    "workspaceFolder": "/workspace",
+    "extensions": [
+        "borkdude.clj-kondo",
+        "betterthantomorrow.calva",
+        "cweijan.vscode-postgresql-client2"
+    ]
+}
