@@ -1,10 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/java:16-bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/php:8-bullseye
 
-# update packages
-RUN apt update -y
-RUN apt upgrade -y
-
-# install php
-RUN apt install -y php-cli
+# install httpie
+RUN apt install -y httpie
 
 ENTRYPOINT ["/bin/bash"]
