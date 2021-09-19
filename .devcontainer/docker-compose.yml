@@ -20,3 +20,11 @@ services:
       - POSTGRES_PASSWORD=applesauce
       - POSTGRES_DB=example
 
+  # web server
+  webserver:
+    hostname: webserver
+    image: php:7.4-apache
+    ports:
+      - 80:80
+    volumes:
+      - ../src:/var/www/html

@@ -4,8 +4,7 @@
     "service": "development",
     "workspaceFolder": "/workspace",
     "extensions": [
-        "borkdude.clj-kondo",
-        "betterthantomorrow.calva",
+        "felixfbecker.php-pack",
         "cweijan.vscode-postgresql-client2"
     ]
 }
