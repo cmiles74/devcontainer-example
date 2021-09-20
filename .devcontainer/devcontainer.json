@@ -5,7 +5,7 @@
     "workspaceFolder": "/workspace",
     "extensions": [
         "felixfbecker.php-pack",
-        "cweijan.vscode-postgresql-client2"
+        "cweijan.vscode-mysql-client2"
     ],
     "appPort": [9080]
 }

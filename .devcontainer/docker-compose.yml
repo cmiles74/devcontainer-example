@@ -10,19 +10,43 @@ services:
     stdin_open: true
 
   # database
-  postgresql:
-    hostname: postgres_db
-    image: postgres:13
+  mysql_db:
+    hostname: mysql_db
+    image: mysql/mysql-server:latest
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=applesauce
-      - POSTGRES_DB=example
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_DB}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+    
+  # flyway
+  flyway:
+    hostname: flyway
+    image: flyway/flyway:latest
+    environment:
+      - FLYWAY_URL=jdbc:mysql://${DATABASE_HOST}/${DATABASE_DB}
+      - FLYWAY_USER=${DATABASE_USER}
+      - FLYWAY_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ../sql:/flyway/sql
+    command: -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+    depends_on:
+      - mysql_db
 
   # web server
   webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile-webserver
     hostname: webserver
-    image: php:7.4-apache
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_DB=${DATABASE_DB}
     ports:
       - 9080:80
     volumes:
+      - ./apache-virtualhost.conf:/etc/apache2/sites-enabled/00-default.conf
+      - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ../src:/var/www/html
