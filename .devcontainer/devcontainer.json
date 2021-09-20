@@ -7,5 +7,5 @@
         "felixfbecker.php-pack",
         "cweijan.vscode-postgresql-client2"
     ],
-    "forwardPorts": [9080]
+    "appPort": [9080]
 }
