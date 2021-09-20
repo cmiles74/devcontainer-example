@@ -58,7 +58,7 @@ your project isn't too big.
 If you have a big project and you are on Windows or MacOS then Codespace is the
 way to go. For my large test project, Visual Studio Code times out during the
 startup of the container because it's takes _so long_ for the files to make it
-out to the container. For those interested in why it takes so long...
+out to the container.  This project will work in all three!
 
 ### Docker
 
@@ -69,6 +69,8 @@ more processes on your machine and it all works great.
 
 More importantly, when you share files from your local machine with a container
 the performance is pretty good.
+
+To connect to the webserver, use [http://localhost:9080](http://localhost:9080).
 
 ### Docker Desktop
 
@@ -83,12 +85,18 @@ machine what really happens is that those files are shared with the virtual
 machine that's running Docker. From there, they are shared again with your Docker
 containers. As you have guessed or even noticed, performance is not great.
 
+To connect to the webserver, use [http://localhost:9080](http://localhost:9080).
+
 ### GitHub Codespace
 
 When you run on Codespace, GitHub provisions Linux containers and handles the 
 sharing of your project with those containers for you. It's all transparent and
 pretty performant so we're not really concerned with the nitty-gritty of how it 
 works. It works well enough even for large projects.
+
+To connect to the webserver, open the lower panel (where the "Terminal" tab is
+displayed) and click on the "Ports" tab. There will be one listed and you can
+click on the URL to open it in your browser.
 
 ## Developing with Several Containers
 
