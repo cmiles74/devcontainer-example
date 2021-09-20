@@ -18,10 +18,13 @@ machine.
 
 This project provides a devcontainer running PHP that you can use to do your
 all of your development work, it has the PHP and PostgreSQL extensions installed
-already. There's another container named `postgres_db` that's running postgres, 
-you can use this to persist data for your project. Lastly there's a container 
-named `webserver` running Apache and PHP, it's serving the files from the 
-`src` directory of this project.
+already. There's another container named `mysql_db` that's running MySQL, 
+you can use this to persist data for your project. When the containers start
+up we also create one running [Flyway][4], it runs the migrations for our 
+application.
+
+Lastly there's a container named `webserver` running Apache and PHP, it's 
+serving the files from the `src` directory of this project.
 
 If you run on your local machine, you should be able to see the 
 [the webserver on port 9080](http://localhost:9080), if you're running on 
@@ -30,14 +33,19 @@ Cloudspace then this port will be forwarded out into it's own URL (in the
 using the installed PostgreSQL extension using the default port. The 
 credentials are...
 
-* Server Name: postgres_db
-* Account Name: postgres
+* Server Name: mysql_db
+* Account Name: example_account
 * Password: applesauce
 * Database: example
 
 Note that the database server isn't available outside the container 
 environment, in this project you must use tools from inside Visual Studio 
 Code.
+
+If you need your own migrations, you can open a terminal in your development
+container and invoke Flyway like so...
+
+    flyway migrate
 
 The basic idea here is to provide a semi-complicated development environment so
 that you can get an idea of how it all works.
@@ -120,3 +128,4 @@ me a pull request!
 [1]: https://docs.github.com/en/codespaces
 [2]: https://docs.docker.com/
 [3]: https://docs.docker.com/get-docker/
+[4]: https://flywaydb.org/

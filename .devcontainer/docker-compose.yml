@@ -5,6 +5,10 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    environment:
+      - FLYWAY_URL=jdbc:mysql://${DATABASE_HOST}/${DATABASE_DB}
+      - FLYWAY_USER=${DATABASE_USER}
+      - FLYWAY_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - ..:/workspace
     stdin_open: true
