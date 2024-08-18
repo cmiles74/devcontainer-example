@@ -14,28 +14,35 @@ services:
     stdin_open: true
 
   # database
-  mysql_db:
-    hostname: mysql_db
-    image: mysql/mysql-server:latest
+  database:
+    hostname: database
+    image: mariadb:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
-      - MYSQL_DATABASE=${DATABASE_DB}
-      - MYSQL_USER=${DATABASE_USER}
-      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MARIADB_DATABASE=${DATABASE_DB}
+      - MARIADB_USER=${DATABASE_USER}
+      - MARIADB_PASSWORD=${DATABASE_PASSWORD}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     
   # flyway
   flyway:
     hostname: flyway
     image: flyway/flyway:latest
     environment:
-      - FLYWAY_URL=jdbc:mysql://${DATABASE_HOST}/${DATABASE_DB}
+      - FLYWAY_URL=jdbc:mariadb://${DATABASE_HOST}/${DATABASE_DB}
       - FLYWAY_USER=${DATABASE_USER}
       - FLYWAY_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - ../sql:/flyway/sql
-    command: -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+    command: ["-locations=filesystem:/flyway/sql", "-connectRetries=60", "migrate"]
     depends_on:
-      - mysql_db
+      database:
+        condition: service_healthy
+
 
   # web server
   webserver:
@@ -54,3 +61,6 @@ services:
       - ./apache-virtualhost.conf:/etc/apache2/sites-enabled/00-default.conf
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ../src:/var/www/html
+    depends_on:
+      database:
+        condition: service_healthy

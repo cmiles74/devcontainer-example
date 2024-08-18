@@ -13,7 +13,8 @@
     <tr>
 
 <?php
-$connection = mysqli_connect($_ENV["DATABASE_HOST"], $_ENV["DATABASE_USER"], $_ENV["DATABASE_PASSWORD"], $_ENV["DATABASE_DB"]);
+$connection = mysqli_init();
+$connection->real_connect($_ENV["DATABASE_HOST"], $_ENV["DATABASE_USER"], $_ENV["DATABASE_PASSWORD"], $_ENV["DATABASE_DB"]);
 $result = mysqli_query($connection, "SELECT * FROM guestbook");
 while($row = mysqli_fetch_array($result)) {
     print "<tr>";
@@ -22,5 +23,6 @@ while($row = mysqli_fetch_array($result)) {
     print "<td>" . $row["note"] . "</td>";
     print "</tr>";
 }
+$connection->close();
 ?>
 </table>
